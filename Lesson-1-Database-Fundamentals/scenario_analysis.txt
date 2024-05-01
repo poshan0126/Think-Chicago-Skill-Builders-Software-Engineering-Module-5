@@ -1,0 +1,19 @@
+1. New Vehicle Addition:
+   When a new vehicle is added to the `Vehicles` table, it will not have an associated rental agreement initially. The `vehicle_id` for the new vehicle will be unique, and there won't be any corresponding entry in the `Rental_Agreements` table with that `vehicle_id`.
+
+   To rent out the new vehicle, a new record must be created in the `Rental_Agreements` table, specifying the `customer_id`, `start_date`, `end_date`, and the `vehicle_id` of the new vehicle. This way, the one-to-one relationship is established between the new vehicle and the rental agreement.
+
+2. Rental Agreement Update:
+   When updating an existing rental agreement, you can change the associated `vehicle_id` to link the agreement with a different vehicle. However, due to the one-to-one constraint, the new `vehicle_id` cannot already be linked to another active rental agreement.
+
+   If you attempt to update the `vehicle_id` in a rental agreement to a `vehicle_id` that is already associated with another active agreement, the database will raise an error or constraint violation, preventing the update from happening. This ensures that each vehicle can only be associated with one rental agreement at a time, maintaining the one-to-one relationship.
+
+   If the desired vehicle is not currently associated with any rental agreement, you can safely update the `vehicle_id` in the existing rental agreement to link it to the new vehicle.
+
+3. Vehicle Availability Check:
+   To check if a particular vehicle is available for rent, you can query the `Rental_Agreements` table and look for any active agreements where the `vehicle_id` matches the desired vehicle.
+
+
+The one-to-one relationship ensures that at any given time, a vehicle can either be associated with at most one active rental agreement or be available for rent if it's not linked to any agreement.
+
+By enforcing the one-to-one relationship between `Vehicles` and `Rental_Agreements`, the database design ensures data integrity and prevents situations where a vehicle is assigned to multiple active rental agreements simultaneously. It also simplifies the process of checking vehicle availability and managing rental agreements efficiently.
