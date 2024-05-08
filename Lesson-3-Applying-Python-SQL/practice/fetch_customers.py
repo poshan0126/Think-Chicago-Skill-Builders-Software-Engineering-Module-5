@@ -13,6 +13,7 @@ def view_database():
         finally:
             cursor.close()
             conn.close()
+# Task 1.1
 def add_view_db():
     if conn is not None:
         try:
